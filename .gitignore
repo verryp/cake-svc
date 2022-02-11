@@ -1,0 +1,22 @@
+vendor/
+bin/
+.idea/
+*.out
+*.log
+*.tmp
+.DS_STORE
+.DS_Store
+.air.toml
+
+# config file
+*.env
+
+# executables & libs
+*.exe
+*.so
+*.dll
+*.test
+*.dylib
+
+# decrypted secret file
+*.dec

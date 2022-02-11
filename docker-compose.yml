@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: cake-store-service-app
+    build: .
+    hostname: ${SERVER_HOST}
+    ports:
+      - ${SERVER_PORT}:8080
+    volumes:
+      - .:/app
+    networks:
+      - cake-store-service-network
+    depends_on:
+      - mariadb
+  mariadb:
+    container_name: cake-store-service-mariadb
+    image: mariadb:10.5.8
+    restart: always
+    hostname: mariadb
+    environment:
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:3306
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - cake-store-service-network
+
+volumes:
+ mariadb:
+  driver: local
+networks:
+  cake-store-service-network:
+    driver: bridge
